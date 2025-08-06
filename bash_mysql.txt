@@ -1,0 +1,81 @@
+shaun@debian:~$ mysql -u admin -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 82
+Server version: 10.5.12-MariaDB-0+deb11u1 Debian 11
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| maxdb              |
+| mysql              |
+| netdb              |
+| performance_schema |
++--------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [(none)]> USE netdb;
+
+
+CREATE TABLE network (
+dealer_group      VARCHAR(40),
+cmf               VARCHAR(8),
+dealer_name       VARCHAR(40),
+install_date      DATE,
+device_id         VARCHAR(30),
+form_que          VARCHAR(30),
+platform          VARCHAR(30),
+mac               VARCHAR(30),
+location          VARCHAR(14),
+ip                VARCHAR(15),
+local_interface   VARCHAR(40),
+remote_interface  VARCHAR(40),
+ios               VARCHAR(70)
+);
+
+
+INSERT INTO network (
+dealer_group,
+cmf,
+dealer_name,
+install_date,
+device_id,
+form_que,
+platform,
+mac,
+location,
+ip,
+local_interface,
+remote_interface,
+ios
+) VALUES (
+'Big Boss Group',
+'29042901',
+'St. Albert Dodge',
+'2021/12/25',
+'r1.stpetersburg-BMW.bertsmith',
+'',
+'CISCO2911/K9',
+'a41f.7257.d458',
+'Parts',
+'207.184.201.62',
+'GigabitEthernet0/2',
+'GigabitEthernet1/0/11',
+'c2900-universalk9-mz.SPA.157-3.M8.bin'
+);
+
+MariaDB [netdb]> SELECT * FROM network;
++----------------+----------+------------------+--------------+-------------------------------+----------------+----------+----------------+-----------------+-----------------+----------------+--------------------+-----------------------+
+| dealer_group   | cmf      | dealer_name      | install_date | device_id                     | mac            | location | ip             | subnet          | mask            | gateway        | local_interface    | remote_interface      |
++----------------+----------+------------------+--------------+-------------------------------+----------------+----------+----------------+-----------------+-----------------+----------------+--------------------+-----------------------+
+| Big Boss Group | 29042901 | St. Albert Dodge | 2021-12-25   | r1.stpetersburg-BMW.bertsmith | a41f.7257.d458 | Parts    | 207.184.201.62 | 255.255.255.224 | 255.255.255.224 | 207.184.201.32 | GigabitEthernet0/2 | GigabitEthernet1/0/11 |
++----------------+----------+------------------+--------------+-------------------------------+----------------+----------+----------------+-----------------+-----------------+----------------+--------------------+-----------------------+
+1 row in set (0.001 sec)
+
+MariaDB [netdb]> 

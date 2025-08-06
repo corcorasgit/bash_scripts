@@ -1,0 +1,60 @@
+9 case "$prefix" in
+ 10    24)
+ 11         echo "you entered 24 255.255.255.0"
+ 12        dec_mask_1=255
+ 13        dec_mask_2=255
+ 14        dec_mask_3=255
+ 15        dec_mask_4=0
+ 16        echo "$dec_mask_1.$dec_mask_2.$dec_mask_3.$dec_mask_4"
+ 17        ;;
+ 18    25)
+ 19        #echo "you entered 25  255.255.255.128"
+ 20        dec_mask_1=255
+ 21        dec_mask_2=255
+ 22        dec_mask_3=255
+ 23        dec_mask_4=128
+ 24        echo "$dec_mask_1.$dec_mask_2.$dec_mask_3.$dec_mask_4"
+ 25        ;;
+ 26    26)
+ 27        #echo "you entered 26   255.255.255.192"
+ 28        dec_mask_1=255
+ 29        dec_mask_2=255
+ 30        dec_mask_3=255
+ 31        dec_mask_4=192
+ 32        echo "$dec_mask_1.$dec_mask_2.$dec_mask_3.$dec_mask_4"
+ 33        ;;
+ 34 
+ 35    27)
+ 36        #echo "you entered 27   255.255.255.224"
+ 37        dec_mask_1=255
+ 38        dec_mask_2=255
+ 39        dec_mask_3=255
+ 40        dec_mask_4=224
+ 41        echo "$dec_mask_1.$dec_mask_2.$dec_mask_3.$dec_mask_4"
+ 42        ;;
+ 43 
+ 44    28)
+ 45        #echo "you entered 28   255.255.255.240"
+ 46        dec_mask_1=255
+ 47        dec_mask_2=255
+ 48        dec_mask_3=255
+ 49        dec_mask_4=248
+ 50        echo "$dec_mask_1.$dec_mask_2.$dec_mask_3.$dec_mask_4"
+ 51        ;;
+ 52    29)
+ 53        #echo "you entered 29   255.255.255.248"
+ 54        dec_mask_1=255
+ 55        dec_mask_2=255
+ 56        dec_mask_3=255
+ 57        dec_mask_4=248
+ 58        echo "$dec_mask_1.$dec_mask_2.$dec_mask_3.$dec_mask_4"
+ 59        ;;
+ 60    30)
+ 61        #echo " you entered 30   255.255.255.252"
+ 62        dec_mask_1=255
+ 63        dec_mask_2=255
+ 64        dec_mask_3=255
+ 65        dec_mask_4=252
+ 66        echo "$dec_mask_1.$dec_mask_2.$dec_mask_3.$dec_mask_4"
+ 67       ;;
+ 68  esac

@@ -1,0 +1,216 @@
+39 -------------------------
+ 38 Device ID: SEP189C5DAAFE75
+ 37 Entry address(es):
+ 36 IP address: 172.30.70.39
+ 35 Platform: Cisco IP Phone 6941 ,  Capabilities: Host Phone Two-port Mac Relay
+ 34 Interface: GigabitEthernet1/0/7,  Port ID (outgoing port): Port 1
+ 33 Holdtime : 144 sec
+ 32 Second Port Status: Up
+ 31 
+ 30 Version :
+ 29 SCCP 9.2.1.0
+ 28 
+ 27 advertisement version: 2
+ 26 Duplex: full
+ 25 Power drawn: 6.000 Watts
+ 24 Power request id: 16582, Power management id: 3
+ 23 Power request levels are:6000 0 0 0 0
+ 22 
+ 21 -------------------------
+ 
+ 
+ 
+ awk -F':' '$3=="test"' input-file
+ 
+ 
+ Device ID:
+ IP address:
+ 
+ Platform:
+ 
+ Interface: 
+ Port ID (outgoing port):
+ 
+cat cdpd | awk -F'Device ID:' '{print $2}'  | awk '!/^$/'
+echo 
+echo
+cat cdpd | awk -F'IP address:' '{print $2}'  | awk '!/^$/'
+echo 
+echo
+cat cdpd | awk -F'Platform:' '{print $2}'  | awk '!/^$/'
+echo 
+echo
+cat cdpd | awk -F'Interface:' '{print $2}'  | awk '!/^$/'
+echo 
+echo
+
+shaun@debian:~/cisco$ cat cdpd | awk -F'Device ID:' '{print $2}'  | awk '!/^$/' | sed 's/.nis.cdk.com//'
+ SEP189C5DAB543E
+ r3-76039334
+ SEP001B0CDAF724
+ s2-76039334
+ r2-76039334
+ s3-76039334
+ r1-76039334
+ SEPBCC493A5C486
+ SEPBCC493A4C242
+ SEPBCC493A5C7AF
+ SEP189C5DAB5473
+ SEP189C5DAAFB46
+ SEP189C5DAB5456
+ SEP189C5DAAFE75
+ SEPBCC493A54DA1
+ 
+ 
+ 
+
+  
+shaun@debian:~/cisco$ cat cdpd | awk -F'Platform:' '{print $2}'  | awk '!/^$/' | awk -F',' '{print $1}' | sed 's/[C|c]isco//' | sed 's/IP//'
+   Phone 6941 
+  CISCO2921/K9
+   Phone 7960
+  WS-C2960X-24PS-L
+  ISR4331/K9
+  WS-C2960X-24PS-L
+  ISR4321/K9
+   Phone 7962
+   Phone 7962
+   Phone 7962
+   Phone 6941 
+   Phone 6941 
+   Phone 6941 
+   Phone 6941 
+   Phone 7962
+shaun@debian:~/cisco$ 
+
+
+shaun@debian:~/cisco$ cat cdpd | awk -F'Interface:' '{print $2}'  | awk '!/^$/' | awk -F',' '{print $1}' 
+ GigabitEthernet1/0/5
+ GigabitEthernet1/0/3
+ GigabitEthernet1/0/15
+ GigabitEthernet1/0/26
+ GigabitEthernet1/0/2
+ GigabitEthernet1/0/25
+ GigabitEthernet1/0/1
+ GigabitEthernet1/0/10
+ GigabitEthernet1/0/11
+ GigabitEthernet1/0/12
+ GigabitEthernet1/0/17
+ GigabitEthernet1/0/4
+ GigabitEthernet1/0/8
+ GigabitEthernet1/0/7
+ GigabitEthernet1/0/14
+shaun@debian:~/cisco$
+
+shaun@debian:~/cisco$ cat cdpd | awk -F'IP address:' '{print $2}'  | awk '!/^$/'
+ 172.30.70.42
+ 207.185.125.175
+ 172.30.70.40
+ 207.185.125.185
+ 207.185.125.185
+ 204.125.194.253
+ 204.125.194.253
+ 207.185.125.179
+ 207.185.125.179
+ 204.125.194.252
+ 204.125.194.252
+ 172.30.70.48
+ 172.30.70.49
+ 172.30.70.50
+ 172.30.70.37
+ 172.30.70.45
+ 172.30.70.43
+ 172.30.70.39
+ 172.30.70.46
+shaun@debian:~/cisco$
+
+shaun@debian:~/cisco$ cat cdpd | awk -F'Interface:' '{print $2}'  | awk '!/^$/' | awk -F':' '{print $2}'
+ Port 1
+ GigabitEthernet0/0
+ Port 1
+ GigabitEthernet1/0/26
+ GigabitEthernet0/0/0.1
+ GigabitEthernet1/0/25
+ GigabitEthernet0/0/0.1
+ Port 1
+ Port 1
+ Port 1
+ Port 1
+ Port 1
+ Port 1
+ Port 1
+ Port 1
+shaun@debian:~/cisco$ 
+awk -F'Interface:' '{print $2}'  | awk '!/^$/' | awk -F',' '{print $1}' 
+ip=(awk -F'Interface:' '{print $2}'  | awk '!/^$/' | awk -F',' '{print $1}' 
+for word in $(cat cdpd)
+ do 
+ #line=$word | awk -F'Interface:' '{print $2}'  | awk '!/^$/' | awk -F',' '{print $1}'
+ #echo $line
+ 
+ done
+ 
+ 
+ 9 -------------------------
+ 38 Device ID: SEP189C5DAAFE75
+ 37 Entry address(es):
+ 36 IP address: 172.30.70.39
+ 35 Platform: Cisco IP Phone 6941 ,  Capabilities: Host Phone Two-port Mac Relay
+ 34 Interface: GigabitEthernet1/0/7,  Port ID (outgoing port): Port 1
+ 33 Holdtime : 144 sec
+ 32 Second Port Status: Up
+ 31 
+ 30 Version :
+ 29 SCCP 9.2.1.0
+ 28 
+ 27 advertisement version: 2
+ 26 Duplex: full
+ 25 Power drawn: 6.000 Watts
+ 24 Power request id: 16582, Power management id: 3
+ 23 Power request levels are:6000 0 0 0 0
+ 22 
+ 21 -------------------------
+ 
+ #!/bin/bash
+filename='peptides.txt'
+echo Start
+while read p
+ do 
+    #echo "$p"
+	#if line contains Device ID:
+	#then cut on :
+	#assign variable $device_id
+	if [[ "$p" == "Device ID:: ]]
+	   then
+         echo $p
+    fi
+done < cdpd
+
+
+while read p
+ do 
+	if [[ "$p" == *"Device ID:"* ]]
+	   then
+		 found_dev=`echo $p | awk -F':' '{print $2}'| sed 's/.nis.cdk.com//' `
+    fi
+	if [[ "$p" == *"IP address:"* ]]
+	   then
+		 found_ip=`echo $p | awk -F':' '{print $2}'`
+    fi
+    if [[ "$p" == *"Platform:"* ]]
+	   then
+		 found_platform=`echo $p | awk -F':' '{print $2}'| sed 's/[C|c]isco//' | sed 's/IP//'`
+		 found_platform2=`echo $found_platform | awk -F',' '{print $1}'`
+    fi
+	if [[ "$p" == *"Interface:"* ]]
+	   then
+		 found_interface=`echo $p | awk -F':' '{print $2}'`
+		 #echo "found_interface: $found_interface"
+		 found_interface2=`echo $found_interface | awk -F',' '{print $1}' | sed 's/GigabitEthernet/G/'`
+		 #echo "found_interface2: $found_interface2"
+		 final=$" interface $found_interface2 "
+		 final2=$"desc $found_dev $found_platform2 $found_ip $found_interface2"
+		 echo $final
+		 echo $final2
+    fi
+ done < cdpd

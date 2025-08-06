@@ -1,0 +1,66 @@
+IP_RANGE=`prips 172.16.77.192/26`
+aip=( $IP_RANGE )
+# remove broadcast ip address
+BROADCAST_IP=$(("${#aip[@]}"-1))
+unset 'aip[$BROADCAST_IP]'
+# remove Network ip
+unset 'aip[0]'
+
+# Declare a icmp array to capture viable hosts that respond to ping
+declare -a ICMP_REPLY
+for i in "${aip[@]}"
+do 
+  echo "ping -c 2 $i"
+  ALIVE=`ping -c 2 $i | grep from`
+  if [[ "$ALIVE" == *"from"* ]]
+  then
+      echo "ALIVE"
+	  ICMP_REPLY+=( $i )
+  fi 
+  sleep 2
+done
+
+# declare array to capture viable telnet hosts
+#declare -a TELNET_REPLY
+TELNET_REPLY=()
+TELNET_ALIVE=""
+for i in "${ICMP_REPLY[@]}"
+do 
+   echo "testing $i"
+   TELNET_ALIVE=$((timeout 4 bash -c "</dev/tcp/$i/23 && echo OPEN || echo CLOSED") 2>/dev/null)
+   if [[ $TELNET_ALIVE == *"OPEN"* ]]
+   then
+       echo "FOUND one"
+	   TELNET_REPLY+=( $i )
+	   TELNET_ALIVE=""
+   fi
+done
+
+UNIQ_TELNET=($(for IP in "${TELNET_REPLY[@]}"; do echo "${IP}"; done | sort -u))
+echo "${UNIQ_TELNET[@]}"
+
+# scrape data from devices that responded to tcp 23
+for i in "${TELNET_REPLY[@]}"
+do
+   #mytelnet corcoras F3nd3r0122 > $i_scrape
+   mytelnet adp r0adbl0ck
+done
+
+(bash -c '</dev/tcp/$i/23 && echo PORT OPEN || echo PORT CLOSED') 2>/dev/null
+PORT OPEN
+
+# read file lines and look for 
+#"show clock", 
+#"hostname [r|s]",
+#"System image file,"
+#"Base ethernet", 
+#"Model number        :" .. then make an array
+
+# CDP Neighbor detail
+# read file lines and look for Device ID: IP Address: Platform: Interface: Port ID (Outgoing port):,.. then make an array
+# then update mysql INSERT with it
+
+declare -a CDP_INSERT
+for i in (myscrap.txt)
+do
+   if [[ "show clock"
